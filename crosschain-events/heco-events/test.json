@@ -1,0 +1,18 @@
+var Web3 = require('web3');
+var web3 = new Web3(new Web3.providers.HttpProvider());
+var version = web3.version.api;
+        
+web3.eth.getPastLogs('https://api.hecoinfo.com/api?module=contract&action=getabi&address=0xc5abA999a5E7044677455BaaDD7bd566eC87EE2A&apikey=UAKX4J44AESX83YS7V1JD7KWXEWFUCIZK3', function (data) {
+var contractABI = "";
+    contractABI = JSON.parse(data.result);
+    if (contractABI != ''){
+        var MyContract = web3.eth.contract(contractABI);
+        var myContractInstance = MyContract.at("0xc9121e476155ebf0b794b7b351808af3787e727d");
+        var result = myContractInstance.memberId("0xfe8ad7dd2f564a877cc23feea6c0a9cc2e783715");
+        console.log("result1 : " + result);
+        var result = myContractInstance.members(1);
+        console.log("result2 : " + result);
+    } else {
+        console.log("Error" );
+    }
+});
